@@ -1,8 +1,10 @@
 package com.salesianostriana.dam.resteval;
 
+import com.salesianostriana.dam.resteval.model.Place;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +18,25 @@ public class PlaceRepository {
 
     @PostConstruct
     public void init() {
-        // Añadir aquí datos de ejemplo
+
+        Place place1 = Place.builder()
+                .name("Cad")
+                .address("dsa")
+                .desc("D")
+                .image("fdsjkfd.png")
+                .coords("32122")
+                .build();
+        add(place1);
+
+        Place place2 = Place.builder()
+                .name("Domuno")
+                .address("dsa")
+                .desc("D")
+                .image("fdsjkfd.png")
+                .coords("32122")
+                .build();
+
+        add(place2);
     }
 
     public Place add(Place place) {
