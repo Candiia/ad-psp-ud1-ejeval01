@@ -1,13 +1,10 @@
-package com.salesianostriana.dam.resteval;
+package com.salesianostriana.dam.resteval.repository;
 
 import com.salesianostriana.dam.resteval.model.Place;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
@@ -25,6 +22,7 @@ public class PlaceRepository {
                 .desc("D")
                 .image("fdsjkfd.png")
                 .coords("32122")
+                .tags(new ArrayList<>(List.of("china", "dskjdaskl")))
                 .build();
         add(place1);
 
@@ -34,6 +32,7 @@ public class PlaceRepository {
                 .desc("D")
                 .image("fdsjkfd.png")
                 .coords("32122")
+                .tags(new ArrayList<>(List.of( "moderno")))
                 .build();
 
         add(place2);

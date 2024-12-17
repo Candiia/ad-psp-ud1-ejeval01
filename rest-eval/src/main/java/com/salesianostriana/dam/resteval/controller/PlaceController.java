@@ -1,7 +1,10 @@
 package com.salesianostriana.dam.resteval.controller;
 
-import com.salesianostriana.dam.resteval.PlaceRepository;
+import com.salesianostriana.dam.resteval.dto.CreatePlaceDTO;
+import com.salesianostriana.dam.resteval.dto.ListGetPlaceDTO;
+import com.salesianostriana.dam.resteval.repository.PlaceRepository;
 import com.salesianostriana.dam.resteval.model.Place;
+import com.salesianostriana.dam.resteval.service.PlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,40 +18,38 @@ import java.util.Optional;
 @RequestMapping("/place")
 public class PlaceController {
 
-    private final PlaceRepository placeRepository;
+    private final PlaceService placeService;
 
     @GetMapping()
-    public ResponseEntity<List<Place>> getAll(){
-        List<Place> result = placeRepository.getAll();
-        if(result.isEmpty()){
-            ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(result);
+    public ListGetPlaceDTO getAll(){
+        return ListGetPlaceDTO.of(placeService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Place> getPlaceId(@RequestParam Long id){
-        Optional<Place> result = placeRepository.get(id);
-        if(result.isEmpty()){
-            ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.of(result);
+    public Place getPlaceId(@PathVariable Long id){
+        return placeService.getById(id);
     }
+
 
     @PostMapping()
-    public ResponseEntity<Place> create(@RequestBody Place place){
-       return ResponseEntity.status(201).body(place);
+    public ResponseEntity<Place> create(@RequestBody CreatePlaceDTO place){
+       return ResponseEntity.status(201)
+               .body(
+                       placeService.create(place.toPlace())
+               );
     }
 
-    /*@PutMapping("/{id}")
-    public ResponseEntity<Place> edit(@RequestBody Place place, Long id){
-        Optional<Place> result = placeRepository.get(id);
+    @PutMapping("/{id}")
+    public Place edit(@RequestBody CreatePlaceDTO place, @PathVariable Long id){
+       return placeService.edit(id, place.toPlace());
 
-    }*/
+    }
+
+
 
     @DeleteMapping("/{id}")
-    public void delete(@RequestParam Long id){
-        placeRepository.delete(id);
-        ResponseEntity.noContent().build();
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        placeService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

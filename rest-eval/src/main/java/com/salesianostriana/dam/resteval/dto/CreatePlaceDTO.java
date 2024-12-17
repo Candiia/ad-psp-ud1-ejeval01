@@ -8,13 +8,23 @@ public record CreatePlaceDTO(String name,
                              String coords,
                              String image) {
 
-    public static CreatePlaceDTO of(Place place){
-        return new CreatePlaceDTO(
-          place.getName(),
-                place.getAddress(),
-                place.getDesc(),
-                place.getCoords(),
-                place.getImage()
-        );
+   /* public static Place of(CreatePlaceDTO dto){
+        return Place.builder()
+                .name(dto.name)
+                .address(dto.address)
+                .desc(dto.desc)
+                .coords(dto.coords)
+                .image(dto.image)
+                .build();
+    }*/
+
+    public Place toPlace(){
+        return Place.builder()
+                .name(this.name)
+                .address(this.address)
+                .desc(this.desc)
+                .coords(this.coords)
+                .image(this.image)
+                .build();
     }
 }

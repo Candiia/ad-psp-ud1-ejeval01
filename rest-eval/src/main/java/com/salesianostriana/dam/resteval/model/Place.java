@@ -17,7 +17,8 @@ public class Place {
     private String coords;
     private String desc;
 
-    @Setter(AccessLevel.NONE)
+
+    @Setter(AccessLevel.NONE)//permite que no se pueda exponer en modo lectura, por lo que no se puede settear, es decir no se genera
     @Builder.Default
     private List<String> tags = new ArrayList<>();
     private String image;
